@@ -32,6 +32,22 @@ When `keys = true`:
 | `<leader>pt` | normal | Send smart context |
 | `<leader>py` | normal | Send current line |
 
+### Directional Keymaps
+
+Use `<leader>p{h,j,k,l}{cmd}` to send to a specific pane direction:
+
+| Direction Key | Pane | Description |
+|---------------|------|-------------|
+| `h` | left | Send to pane on the left |
+| `j` | down | Send to pane below |
+| `k` | up | Send to pane above |
+| `l` | right | Send to pane on the right |
+
+Examples:
+- `<leader>pls` → send selection right
+- `<leader>phf` → send file position left
+- `<leader>pjd` → send diagnostics down
+
 ## Custom Keymaps
 
 If you prefer to define your own keymaps, leave `keys = false` (default) and add:

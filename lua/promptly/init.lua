@@ -33,6 +33,23 @@ function M.setup(opts)
     map("n", "<leader>pd", function() M.diagnostics() end, { desc = "Send diagnostics to Zellij pane" })
     map("n", "<leader>pt", function() M.this() end, { desc = "Send smart context to Zellij pane" })
     map("n", "<leader>py", function() M.line() end, { desc = "Send current line to Zellij pane" })
+
+    -- Directional keymaps: <leader>p{h,j,k,l}{cmd}
+    local dirs = { h = "left", j = "down", k = "up", l = "right" }
+    for key, dir in pairs(dirs) do
+      local o = { direction = dir }
+      -- Group labels for which-key
+      map("n", "<leader>p" .. key, "", { desc = "Send " .. dir })
+      map("v", "<leader>p" .. key, "", { desc = "Send " .. dir })
+      map("v", "<leader>p" .. key .. "s", function() M.selection(o) end, { desc = "Send selection " .. dir })
+      map("v", "<leader>p" .. key .. "p", function() M.prompt(o) end, { desc = "Pick prompt " .. dir })
+      map("v", "<leader>p" .. key .. "f", function() M.context(o) end, { desc = "Send file + selection " .. dir })
+      map("n", "<leader>p" .. key .. "f", function() M.position(o) end, { desc = "Send file position " .. dir })
+      map("n", "<leader>p" .. key .. "F", function() M.file(o) end, { desc = "Send file path " .. dir })
+      map("n", "<leader>p" .. key .. "d", function() M.diagnostics(o) end, { desc = "Send diagnostics " .. dir })
+      map("n", "<leader>p" .. key .. "t", function() M.this(o) end, { desc = "Send smart context " .. dir })
+      map("n", "<leader>p" .. key .. "y", function() M.line(o) end, { desc = "Send current line " .. dir })
+    end
   end
 end
 
