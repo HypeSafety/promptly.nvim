@@ -32,7 +32,7 @@ function M.setup(opts)
     map("n", "<leader>pF", function() M.file() end, { desc = "Send file path to Zellij pane" })
     map("n", "<leader>pd", function() M.diagnostics() end, { desc = "Send diagnostics to Zellij pane" })
     map("n", "<leader>pt", function() M.this() end, { desc = "Send smart context to Zellij pane" })
-    map("n", "<leader>pl", function() M.line() end, { desc = "Send current line to Zellij pane" })
+    map("n", "<leader>py", function() M.line() end, { desc = "Send current line to Zellij pane" })
   end
 end
 

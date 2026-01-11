@@ -11,6 +11,6 @@ return {
     { "<leader>pF", function() require("promptly").file() end, mode = "n", desc = "Send file path to Zellij pane" },
     { "<leader>pd", function() require("promptly").diagnostics() end, mode = "n", desc = "Send diagnostics to Zellij pane" },
     { "<leader>pt", function() require("promptly").this() end, mode = "n", desc = "Send smart context to Zellij pane" },
-    { "<leader>pl", function() require("promptly").line() end, mode = "n", desc = "Send current line to Zellij pane" },
+    { "<leader>py", function() require("promptly").line() end, mode = "n", desc = "Send current line to Zellij pane" },
   },
 }

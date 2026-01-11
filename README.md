@@ -30,7 +30,7 @@ When `keys = true`:
 | `<leader>pF` | normal | Send file path |
 | `<leader>pd` | normal | Send diagnostics |
 | `<leader>pt` | normal | Send smart context |
-| `<leader>pl` | normal | Send current line |
+| `<leader>py` | normal | Send current line |
 
 ## Custom Keymaps
 
