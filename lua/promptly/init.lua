@@ -6,14 +6,14 @@ local defaults = {
   return_focus = false, -- return focus to nvim after sending (default: stay on target pane)
   keys = false, -- set to true to enable default keymaps
   prompts = {
-    ["Explain"] = "Explain the following code:\n\n{selection}",
-    ["Refactor"] = "Refactor the following code to be more readable and idiomatic:\n\n{selection}",
-    ["Fix Bug"] = "Find and fix any bugs in the following code:\n\n{selection}",
-    ["Optimize"] = "Optimize the following code for performance:\n\n{selection}",
-    ["Add Types"] = "Add type annotations to the following code:\n\n{selection}",
-    ["Review"] = "Review the following code and suggest improvements:\n\n{selection}",
-    ["Document"] = "Add documentation comments to the following code:\n\n{selection}",
-    ["Tests"] = "Write unit tests for the following code:\n\n{selection}",
+    ["Explain"] = "Explain the following code:\n\n{position}\n{selection}",
+    ["Refactor"] = "Refactor the following code to be more readable and idiomatic:\n\n{position}\n{selection}",
+    ["Fix Bug"] = "Find and fix any bugs in the following code:\n\n{position}\n{selection}",
+    ["Optimize"] = "Optimize the following code for performance:\n\n{position}\n{selection}",
+    ["Add Types"] = "Add type annotations to the following code:\n\n{position}\n{selection}",
+    ["Review"] = "Review the following code and suggest improvements:\n\n{position}\n{selection}",
+    ["Document"] = "Add documentation comments to the following code:\n\n{position}\n{selection}",
+    ["Tests"] = "Write unit tests for the following code:\n\n{position}\n{selection}",
     ["Summarize File"] = "Summarize the purpose and logic of this file:\n\n{file}",
   },
 }
@@ -140,7 +140,7 @@ local function get_position()
   local pos = vim.fn.getpos('.')
   local line = pos[2] > 0 and pos[2] or 1
   local col = pos[3] > 0 and pos[3] or 1
-  return string.format("@%s L:%d C:%d", file, line, col)
+  return string.format("@%s:%d:%d", file, line, col)
 end
 
 -- Helper: get buffer diagnostics
@@ -218,7 +218,7 @@ local function get_ts_node(textobject_type)
       if #lines > 0 then
         lines[#lines] = lines[#lines]:sub(1, end_col)
         local file = get_file()
-        local header = string.format("@%s L:%d C:%d\n", file, start_row + 1, start_col + 1)
+        local header = string.format("@%s:%d:%d\n", file, start_row + 1, start_col + 1)
         return header .. table.concat(lines, "\n")
       end
     end
@@ -245,7 +245,7 @@ local function get_ts_node(textobject_type)
         if #lines > 0 then
           lines[#lines] = lines[#lines]:sub(1, end_col)
           local file = get_file()
-          local header = string.format("@%s L:%d C:%d\n", file, start_row + 1, start_col + 1)
+          local header = string.format("@%s:%d:%d\n", file, start_row + 1, start_col + 1)
           return header .. table.concat(lines, "\n")
         end
       end
@@ -386,7 +386,7 @@ function M.context(opts)
   local file = vim.fn.expand("%:.")
   if file == "" then file = "[No Name]" end
   local cursor = vim.api.nvim_win_get_cursor(0)
-  local pos = string.format("@%s L:%d C:%d", file, cursor[1], cursor[2] + 1)
+  local pos = string.format("@%s:%d:%d", file, cursor[1], cursor[2] + 1)
 
   -- Get selection same way as M.selection()
   local sel = get_visual_selection()
